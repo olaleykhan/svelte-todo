@@ -17,9 +17,10 @@
     "baseUrl": ".",
     "types": ["node"],
     "paths": {
-      "@components/*": ["src/lib/components/*"],
-      "@stores/*": ["src/lib/stores/*"],
-      "@utils/*": ["src/lib/utils/*"]
+      "$lib/*": ["src/lib*"],
+      "$components/*": ["src/lib/components/*"],
+      "$stores/*": ["src/lib/stores/*"],
+      "$utils/*": ["src/lib/utils/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
