@@ -1,37 +1,33 @@
 <script lang="ts">
-  import { TodoItem, TodoForm } from "$components/index";
-  import type { Todos } from "../types";
+  import { createEventDispatcher } from "svelte";
+  // add types
+  const dispatch = createEventDispatcher<{
+    addTodo: string;
+  }>();
 
-  export let todos: Todos = [];
+  let todoInput = "";
 
-  function handleSubmit(event: CustomEvent<string>) {
-    const t = new Date().getTime().toString().substr(-4);
-    const newTodo = {
-      id: t,
-      title: t,
-      description: event.detail,
-      done: false,
-    };
-
-    todos = [newTodo, ...todos];
+  function handleSubmit() {
+    dispatch("addTodo", todoInput);
+    todoInput = "";
   }
 </script>
 
-<main>
-  <h2>Our todo App</h2>
-
-  <TodoForm on:addTodo={handleSubmit} />
-
-  {#if !todos.length}
-    <p>No todos yet. | Please type into the box below</p>
-  {/if}
-
-  {#if todos.length > 0}
-    {#each todos as todo (todo.id)}
-      <TodoItem {todo} />
-    {/each}
-  {/if}
-</main>
+<div>
+  <form on:submit|preventDefault={handleSubmit} class="form">
+    <div class="input-wrapper">
+      <input
+        class="todo-input"
+        type="text"
+        placeholder="Add a new todo"
+        bind:value={todoInput}
+      />
+    </div>
+    <div class="button-wrap">
+      <button class="btn"> Add Todos</button>
+    </div>
+  </form>
+</div>
 
 <style>
   .input-wrapper {
