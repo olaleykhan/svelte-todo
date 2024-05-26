@@ -5,4 +5,6 @@
 </script>
 
 
+
+<h2>Our todo App</h2>
 <Todo  bind:todos={TODO_DUMMY}/>

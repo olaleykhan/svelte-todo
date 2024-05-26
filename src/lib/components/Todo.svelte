@@ -15,59 +15,29 @@
 
     todos = [newTodo, ...todos];
   }
+
+  function handleDeleteTodo(event: CustomEvent<string | number>) {
+    todos = todos.filter((todo) => todo.id !== event.detail);
+  }
 </script>
 
 <main>
-  <h2>Our todo App</h2>
-
   <TodoForm on:addTodo={handleSubmit} />
 
-  {#if !todos.length}
-    <p>No todos yet. | Please type into the box below</p>
-  {/if}
-
   {#if todos.length > 0}
-    {#each todos as todo (todo.id)}
-      <TodoItem {todo} />
-    {/each}
+    <ul class="todo-list">
+      {#each todos as todo (todo.id)}
+        <TodoItem {todo} on:deleteTodo={handleDeleteTodo} />
+      {/each}
+    </ul>
+  {:else}
+    <p>No todos yet. | Please type into the box below</p>
   {/if}
 </main>
 
 <style>
-  .input-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  .todo-input {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-  }
-  .button-wrap {
-    display: flex;
-    justify-content: center;
-    /* margin-top: 10px; */
-  }
-  .btn {
-    /* padding: 10px 20px; */
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .btn:hover {
-    background-color: #555;
-    color: #fff;
-  }
-
-  .form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 32px;
+  .todo-list {
+    margin-top: 2rem;
+    border-top: 1px solid green;
   }
 </style>
